@@ -37,9 +37,13 @@ router.param("comment", function(req, res, next, id) {
 });
 
 router.get("/", auth.optional, function(req, res, next) {
-  var query = {};
+  var query = {}
   var limit = 100;
   var offset = 0;
+
+  if (typeof req.query.title !== "undefined") {
+    query.title = {$regex: new RegExp(req.query.title, "i")}
+  }
 
   if (typeof req.query.limit !== "undefined") {
     limit = req.query.limit;
