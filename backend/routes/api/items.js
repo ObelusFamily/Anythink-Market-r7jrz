@@ -42,7 +42,7 @@ router.get("/", auth.optional, function(req, res, next) {
   var offset = 0;
 
   if (typeof req.query.title !== "undefined") {
-    query.title = req.query.title;
+    query.title = {$regex: new RegExp(req.query.title, "i")}
   }
 
   if (typeof req.query.limit !== "undefined") {
